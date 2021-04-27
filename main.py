@@ -9,7 +9,7 @@ from anpr import ANPR
 from plate_detection import ShapeDetector
 from image_processors import ImageProcessor
 
-WIDTH = 720
+WIDTH = 72000
 # possible scenarios
 
 if __name__ == '__main__':
