@@ -8,3 +8,5 @@ plate ratio:
 
 
 THRESHOLD PE CROPPED
+
+blurring de la 55 la 5

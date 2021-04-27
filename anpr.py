@@ -9,6 +9,11 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tessera
 class ANPR():
     def __init__(self):
         self.cropped_sections = None
+        self.enhanced_cropped_sections = None
+        self.COUNTRY_REGULAR_PLATE = r'[A-Z]{2}\d{2}[A-Z]{3}'
+        self.BUC_REGULAR_PLATE = r'B\d{2,3}[A-Z]{3}'
+        self.COUNTRY_TEMPORARY_PLATE = r'[A-Z]{2}\d{6}'
+        self.BUC_TEMPORARY_PLATE = r'B\d{6}'
 
     def crop_number_plate(self, src, plates, raw_img):
         """
@@ -29,6 +34,20 @@ class ANPR():
 
         return self.cropped_sections
 
+    def enhance_cropped_plate(self, cropped):
+        """
+        applies some image processing on cropped plates before detecting the text
+        """
+        enhanced_cropped = []
+        for c in cropped:
+            new = cv2.GaussianBlur(c, (5, 5), 0)
+            _, new = cv2.threshold(new, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            enhanced_cropped.append(new)
+
+        self.enhanced_cropped_sections = enhanced_cropped
+
+        return self.enhanced_cropped_sections
+
     def clean_number_plate(self, vrn):
         """
         removes possible unwanted characters from the number
@@ -39,11 +58,20 @@ class ANPR():
         """
         checks the format of the identified registration number
         """
+        reg_plate_cases = [self.COUNTRY_REGULAR_PLATE, self.BUC_REGULAR_PLATE, self.COUNTRY_TEMPORARY_PLATE,
+                           self.BUC_TEMPORARY_PLATE]
+        for reg_exp in reg_plate_cases:
+            r = re.compile(reg_exp)
+            res = r.search(vrn)
+            if res:
+                return res.group()
+
+        return None
 
     def detect_registration_number(self, cropped_list):
         detected = []
         for c in cropped_list:
-            vrn = pytesseract.image_to_string(c, config='--psm 11')
+            vrn = pytesseract.image_to_string(c, config='--psm 6')
             vrn = self.clean_number_plate(vrn)
             detected.append(vrn)
 
