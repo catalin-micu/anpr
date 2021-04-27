@@ -1,0 +1,54 @@
+--------------------------- pytesseract.image_to_string config params --------------------------- 
+
+************************ --psm ************************
+Page segmentation modes:
+  0    Orientation and script detection (OSD) only.
+  1    Automatic page segmentation with OSD.
+  2    Automatic page segmentation, but no OSD, or OCR.
+  3    Fully automatic page segmentation, but no OSD. (Default)
+  4    Assume a single column of text of variable sizes.
+  5    Assume a single uniform block of vertically aligned text.
+  6    Assume a single uniform block of text.
+  7    Treat the image as a single text line.
+  8    Treat the image as a single word.
+  9    Treat the image as a single word in a circle.
+ 10    Treat the image as a single character.
+ 11    Sparse text. Find as much text as possible in no particular order.
+ 12    Sparse text with OSD.
+ 13    Raw line. Treat the image as a single text line,
+                        bypassing hacks that are Tesseract-specific.
+
+
+************************ --oem ************************
+Specify OCR Engine mode.
+
+  0    Legacy engine only.
+  1    Neural nets LSTM engine only.
+  2    Legacy + LSTM engines.
+  3    Default, based on what is available.
+
+
+************************************************************************************************************************
+# for c in contours:
+    #     peri = cv2.arcLength(c, True)
+    #     approx = cv2.approxPolyDP(c, 0.018 * peri, True)  # returns list of vertices
+    #     if sd.detect_plate(approx):
+    #         valid_cnts.append(c)
+    #         c = c.astype('int')
+    #         cv2.drawContours(img, [c], -1, (0, 0, 255), 2)
+    #         cv2.imshow('plate', img)
+    #         cv2.waitKey()
+    #         screenCnt = approx
+    #         break
+    #
+    # mask = np.zeros(blurred.shape, np.uint8)
+    # new_image = cv2.drawContours(mask, [screenCnt], 0, 255, -1, )
+    # new_image = cv2.bitwise_and(img, img, mask=mask)
+    #
+    # (x, y) = np.where(mask == 255)
+    # (topx, topy) = (np.min(x), np.min(y))
+    # (bottomx, bottomy) = (np.max(x), np.max(y))
+    # Cropped = blurred[topx:bottomx + 1, topy:bottomy + 1]
+    #
+    # cv2.imshow('c', Cropped)
+    # cv2.waitKey()

@@ -1,0 +1,10 @@
+1) grayscale, sharpen/blur, thresh, detect plate
+	- preferably white objects on black background
+	- how to determine what preprocessor is best?
+	- isolate plate
+
+plate ratio:
+    4.490196078431373
+
+
+THRESHOLD PE CROPPED
