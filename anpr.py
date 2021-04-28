@@ -52,7 +52,34 @@ class ANPR():
         """
         removes possible unwanted characters from the number
         """
-        return re.sub(r'[^\dA-Z]', '', vrn)
+        cleaned = re.sub(r'[^\dA-Z]', '', vrn)
+
+        if re.match(r'^[A-Z]{2}', cleaned) and len(cleaned) == 7:
+            if cleaned[2] == 'O':
+                cleaned = cleaned[:2] + '0' + cleaned[3:]
+            if cleaned[2] == 'I':
+                cleaned = cleaned[:2] + '1' + cleaned[3:]
+            if cleaned[3] == 'O':
+                cleaned = cleaned[:3] + '0' + cleaned[4:]
+            if cleaned[3] == 'I':
+                cleaned = cleaned[:3] + '1' + cleaned[4:]
+
+        if re.match(r'^B', cleaned) and len(cleaned) == 7:
+            if cleaned[1] == 'O':
+                cleaned = cleaned[:1] + '0' + cleaned[2:]
+            if cleaned[1] == 'I':
+                cleaned = cleaned[:1] + '1' + cleaned[2:]
+            if cleaned[2] == 'O':
+                cleaned = cleaned[:2] + '0' + cleaned[3:]
+            if cleaned[2] == 'I':
+                cleaned = cleaned[:2] + '1' + cleaned[3:]
+            if cleaned[3] == 'O':
+                cleaned = cleaned[:3] + '0' + cleaned[4:]
+            if cleaned[3] == 'I':
+                cleaned = cleaned[:3] + '1' + cleaned[4:]
+
+        return cleaned
+
 
     def validate_registration_number(self, vrn):
         """
@@ -76,3 +103,10 @@ class ANPR():
             detected.append(vrn)
 
         return detected
+
+    def crop(self, src, plates, raw_img):
+        cropped_plates = []
+        for c in plates:
+            x, y, w, h = cv2.boundingRect(c)
+            cropped_plates.append(src[y:y+h, x:x+w])
+        return cropped_plates

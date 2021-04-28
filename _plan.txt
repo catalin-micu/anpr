@@ -6,7 +6,8 @@
 plate ratio:
     4.490196078431373
 
-
-THRESHOLD PE CROPPED
-
 blurring de la 55 la 5
+
+chelutzu:
+_, new = cv2.threshold(blurred.copy(), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+edge = new
