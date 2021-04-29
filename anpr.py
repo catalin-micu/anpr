@@ -15,25 +15,6 @@ class ANPR():
         self.COUNTRY_TEMPORARY_PLATE = r'[A-Z]{2}\d{6}'
         self.BUC_TEMPORARY_PLATE = r'B\d{6}'
 
-    def crop_number_plate(self, src, plates, raw_img):
-        """
-        crops a list of possible plates from the source image
-        """
-        mask = np.zeros(src.shape, np.uint8)
-        cropped_sections = []
-        for plate in plates:
-            new_image = cv2.drawContours(mask, [plate], 0, 255, -1, )
-            new_image = cv2.bitwise_and(raw_img, raw_img, mask=mask)
-            (x, y) = np.where(mask == 255)
-            (topx, topy) = (np.min(x), np.min(y))
-            (bottomx, bottomy) = (np.max(x), np.max(y))
-            cropped = src.copy()[topx:bottomx + 1, topy:bottomy + 1]
-
-            cropped_sections.append(cropped)
-        self.cropped_sections = cropped_sections
-
-        return self.cropped_sections
-
     def enhance_cropped_plate(self, cropped):
         """
         applies some image processing on cropped plates before detecting the text
@@ -96,15 +77,16 @@ class ANPR():
         return None
 
     def detect_registration_number(self, cropped_list):
-        detected = []
         for c in cropped_list:
             vrn = pytesseract.image_to_string(c, config='--psm 6')
             vrn = self.clean_number_plate(vrn)
-            detected.append(vrn)
+            validated = self.validate_registration_number(vrn)
+            if validated:
+                return validated
 
-        return detected
+        return None
 
-    def crop(self, src, plates, raw_img):
+    def crop(self, src, plates):
         cropped_plates = []
         for c in plates:
             x, y, w, h = cv2.boundingRect(c)

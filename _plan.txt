@@ -1,12 +1,6 @@
-1) grayscale, sharpen/blur, thresh, detect plate
-	- preferably white objects on black background
-	- how to determine what preprocessor is best?
-	- isolate plate
 
-plate ratio:
-    4.490196078431373
-
-blurring de la 55 la 5
+!!! porneste cei doi alg in paralel??
+arata rezultatele doar daca a fost gasit numarul CA POTI CA AI SALVAT FIECARE IMAGINE
 
 chelutzu:
 _, new = cv2.threshold(blurred.copy(), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
