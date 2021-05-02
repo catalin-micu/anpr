@@ -1,5 +1,4 @@
 import cv2
-import utils
 from anpr import ANPR
 from image_processors import ImageProcessor
 from plate_detection import ShapeDetector
@@ -18,15 +17,15 @@ class Controller():
         # cv2.waitKey()
 
         edge = ip.detect_edges(src=blurred, low_thresh=30, high_thresh=150)
-        cv2.imshow('edge', edge)
-        cv2.waitKey()
+        # cv2.imshow('edge', edge)
+        # cv2.waitKey()
 
         sd = ShapeDetector()
         contours = sd.get_contours(src=edge.copy())
 
         app_cnts = sd.approximate_contours(contours)
         poss_plates = sd.detect_possible_plates(app_cnts)
-        utils.draw_contours(src=img.copy(), cnts=poss_plates)
+        # utils.draw_contours(src=img.copy(), cnts=poss_plates)
         anpr = ANPR()
         cropped = anpr.crop(src=blurred.copy(), plates=poss_plates)
 
@@ -49,15 +48,15 @@ class Controller():
         # cv2.waitKey()
 
         edge = new
-        cv2.imshow('edge', edge)
-        cv2.waitKey()
+        # cv2.imshow('edge', edge)
+        # cv2.waitKey()
 
         sd = ShapeDetector()
         contours = sd.get_contours(src=edge.copy())
 
         app_cnts = sd.approximate_contours(contours)
         poss_plates = sd.detect_possible_plates(app_cnts)
-        utils.draw_contours(src=img.copy(), cnts=poss_plates)
+        # utils.draw_contours(src=img.copy(), cnts=poss_plates)
         anpr = ANPR()
         cropped = anpr.crop(src=blurred.copy(), plates=poss_plates)
 
@@ -72,13 +71,14 @@ class Controller():
 
     def run(self, img_path):
         blurr_colors = [55, 45, 35, 25, 15, 5]
+
         for color in blurr_colors:
-            result = self.run_otsu_algorithm(blur_color=color, img_path=img_path)
+            result = self.run_edge_algorithm(blur_color=color, img_path=img_path)
             if result:
                 return result
 
         for color in blurr_colors:
-            result = self.run_edge_algorithm(blur_color=color, img_path=img_path)
+            result = self.run_otsu_algorithm(blur_color=color, img_path=img_path)
             if result:
                 return result
 

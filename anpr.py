@@ -1,6 +1,5 @@
 import re
 import cv2
-import numpy as np
 import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
@@ -10,6 +9,7 @@ class ANPR():
     def __init__(self):
         self.cropped_sections = None
         self.enhanced_cropped_sections = None
+
         self.COUNTRY_REGULAR_PLATE = r'[A-Z]{2}\d{2}[A-Z]{3}'
         self.BUC_REGULAR_PLATE = r'B\d{2,3}[A-Z]{3}'
         self.COUNTRY_TEMPORARY_PLATE = r'[A-Z]{2}\d{6}'
@@ -58,6 +58,12 @@ class ANPR():
                 cleaned = cleaned[:3] + '0' + cleaned[4:]
             if cleaned[3] == 'I':
                 cleaned = cleaned[:3] + '1' + cleaned[4:]
+
+        if re.match(r'^[A-Z]{2}', cleaned) and len(cleaned) == 8:
+            if cleaned[0] == 'Y':
+                cleaned = 'V' + cleaned[1:]
+            if cleaned[1] == 'Y':
+                cleaned = cleaned[0] + 'V' + cleaned[2:]
 
         return cleaned
 

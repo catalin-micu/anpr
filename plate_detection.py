@@ -11,7 +11,7 @@ class ShapeDetector:
 
     def get_contours(self, src):
         """
-        extracts only the closed contours in the image
+        extracts only the closed contours in the input image
         contour =  any curve in the image
         """
         contours = cv2.findContours(src, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
