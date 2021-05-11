@@ -28,27 +28,4 @@ Specify OCR Engine mode.
   3    Default, based on what is available.
 
 
-************************************************************************************************************************
-# for c in contours:
-    #     peri = cv2.arcLength(c, True)
-    #     approx = cv2.approxPolyDP(c, 0.018 * peri, True)  # returns list of vertices
-    #     if sd.detect_plate(approx):
-    #         valid_cnts.append(c)
-    #         c = c.astype('int')
-    #         cv2.drawContours(img, [c], -1, (0, 0, 255), 2)
-    #         cv2.imshow('plate', img)
-    #         cv2.waitKey()
-    #         screenCnt = approx
-    #         break
-    #
-    # mask = np.zeros(blurred.shape, np.uint8)
-    # new_image = cv2.drawContours(mask, [screenCnt], 0, 255, -1, )
-    # new_image = cv2.bitwise_and(img, img, mask=mask)
-    #
-    # (x, y) = np.where(mask == 255)
-    # (topx, topy) = (np.min(x), np.min(y))
-    # (bottomx, bottomy) = (np.max(x), np.max(y))
-    # Cropped = blurred[topx:bottomx + 1, topy:bottomy + 1]
-    #
-    # cv2.imshow('c', Cropped)
-    # cv2.waitKey()
+lista = ['MH14WOW', 'B251RZV', 'AB27BIM', 'IF042090', 'DB08FEF', 'BH90WTT', 'BV77SXN', 'CT02PTL', 'PH63BGN', 'BZ10XCX', 'MS14LJB', 'SB94BMT', 'B45ZEV', 'B870CTA', 'BV079880']

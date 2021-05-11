@@ -1,6 +1,11 @@
 from os import listdir
 from os.path import isfile, join
+from sqlalchemy.orm import sessionmaker
 from controller import Controller
+from sqlalchemy import create_engine
+
+from models import session, insert_number_plates_entry, test_function, search_number_plates_table
+from models.number_plates_model import NumberPlates
 
 IMAGE_WIDTH = 720
 VALID_MENU_COMMANDS = ['1', '2', 'q']
@@ -55,9 +60,21 @@ if __name__ == '__main__':
     """
 
     controller = Controller(IMAGE_WIDTH)
-    detected_registration_number = controller.run(img_path='images/plate5.jpg')
+    detected_registration_number = controller.run(img_path='images/plate8.jpg')
 
     if detected_registration_number:
         print('Detected number plate:', detected_registration_number)
+        if search_number_plates_table(detected_registration_number):
+            print('Access granted.')
+        else:
+            print('Access denied.')
     else:
         print('No number plate detected.')
+
+    # print(search_number_plates_table('VN201BRN'))
+    # test_function()
+
+    # todo: second table
+    #  add entry in second table for each run
+    #  ghost function for exiting parking lot
+    #  generate mass data
