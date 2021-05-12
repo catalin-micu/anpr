@@ -1,10 +1,12 @@
+from datetime import datetime, timedelta
 from os import listdir
 from os.path import isfile, join
 from sqlalchemy.orm import sessionmaker
 from controller import Controller
 from sqlalchemy import create_engine
 
-from models import session, insert_number_plates_entry, test_function, search_number_plates_table
+from models import session, insert_number_plates_entry, test_function, search_number_plates_table, \
+    insert_residence_parking_lot_entry_duo
 from models.number_plates_model import NumberPlates
 
 IMAGE_WIDTH = 720
@@ -59,20 +61,22 @@ if __name__ == '__main__':
     The section below is meant for algorithm presentation and intermediary results
     """
 
-    controller = Controller(IMAGE_WIDTH)
-    detected_registration_number = controller.run(img_path='images/plate8.jpg')
+    # controller = Controller(IMAGE_WIDTH)
+    # detected_registration_number = controller.run(img_path='images/plate8.jpg')
+    #
+    # if detected_registration_number:
+    #     print('Detected number plate:', detected_registration_number)
+    #     if search_number_plates_table(detected_registration_number):
+    #         print('Access granted.')
+    #     else:
+    #         print('Access denied.')
+    # else:
+    #     print('No number plate detected.')
 
-    if detected_registration_number:
-        print('Detected number plate:', detected_registration_number)
-        if search_number_plates_table(detected_registration_number):
-            print('Access granted.')
-        else:
-            print('Access denied.')
-    else:
-        print('No number plate detected.')
-
-    # print(search_number_plates_table('VN201BRN'))
+    # insert_residence_parking_lot_entry('DJ72ACC', datetime.now().isoformat(), 'out')
     # test_function()
+    insert_residence_parking_lot_entry_duo('VN20BRN', datetime.now().isoformat(), 8, 'hours')
+    a=2
 
     # todo: second table
     #  add entry in second table for each run

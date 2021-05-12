@@ -29,3 +29,7 @@ Specify OCR Engine mode.
 
 
 lista = ['MH14WOW', 'B251RZV', 'AB27BIM', 'IF042090', 'DB08FEF', 'BH90WTT', 'BV77SXN', 'CT02PTL', 'PH63BGN', 'BZ10XCX', 'MS14LJB', 'SB94BMT', 'B45ZEV', 'B870CTA', 'BV079880']
+
+date_string = '2021-05-12T21:53:27.669450'
+d = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%S.%f')
+dif = d + timedelta('minutes=1')
