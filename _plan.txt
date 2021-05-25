@@ -2,6 +2,12 @@
 !!! porneste cei doi alg in paralel??
 arata rezultatele doar daca a fost gasit numarul CA POTI CA AI SALVAT FIECARE IMAGINE
 
-chelutzu:
-_, new = cv2.threshold(blurred.copy(), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-edge = new
+
+    *** react graphs ***
+-gradul de ocupare pe ore la restaurante sau la mall
+-durata medie a unei sederi in parcare: in timpul saptamanii si in weekend
+-variatia pe zilele saptamanii
+
+-linie cu cat timp sta in parcare fiecare numar timp de o saptamana: x=timp(ore), y=zilele saptamanii
+-pentru toate masinile din parcare, cat stau in parcare (viziune de ansamblu): x=timp(zile gradate per ora), y= nr inmatriculare
+-raport sederi vizitatori?
